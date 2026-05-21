@@ -1,0 +1,212 @@
+/* ==========================================
+   ESTILOS COMPARTIDOS
+   ========================================== */
+
+/* Unificamos todas las tarjetas */
+.feature-card, .service-card, .project-card {
+    background: white;
+    transition: all 0.3s ease;
+}
+
+/* Unificamos el efecto hover de todas las tarjetas */
+.feature-card:hover, .service-card:hover, .project-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-5px);
+}
+
+/* Unificamos las propiedades de los títulos h3 */
+.feature-card h3, .service-card h3, .project-card h3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* Unificamos los títulos de los héroes */
+.hero-section h1, .hero-section-services h1, .hero-projects h1 {
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   HOME Y SERVICIOS
+   ========================================== */
+.hero-section {
+    background: linear-gradient(135deg, #a7f3d0 0%, #bae6fd 100%);
+    color: #1e293b;
+}
+
+.hero-section-services {
+    background: linear-gradient(135deg, #a7f3d0 0%, #86efac 100%);
+    color: #065f46; 
+}
+
+.welcome-section, .intro-section {
+    background: #f8fafc;
+    border-left: 5px solid #86efac;
+}
+
+.welcome-section h2, .intro-section h2 {
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.feature-card.card-verde, .service-card { border-top: 4px solid #86efac; }
+.feature-card.card-azul   { border-top: 4px solid #bae6fd; }
+.feature-card.card-rosa   { border-top: 4px solid #fbcfe8; }
+
+
+/* ==========================================
+   PÁGINA DE PROYECTOS
+   ========================================== */
+.hero-projects {
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+}
+
+.intro-projects {
+    background: #fff9e6;
+    border-left: 5px solid #f39c12;
+}
+
+.project-card {
+    border-top: 4px solid #f39c12;
+}
+
+.project-card h3 {
+    color: #333;
+}
+
+
+/* ==========================================
+   PÁGINA DE CLIENTES
+   ========================================== */
+
+/* Añadimos la tarjeta de clientes al grupo de estilos comunes */
+.feature-card, .service-card, .project-card, .client-card {
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover, .service-card:hover, .project-card:hover, .client-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-5px);
+}
+
+/* Añadimos los títulos h3 comunes */
+.feature-card h3, .service-card h3, .project-card h3, .client-card h3 {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* Estilos específicos de Clientes */
+.hero-clients {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+}
+
+.intro-clients {
+    background: #eff6ff;
+    border-left: 5px solid #3b82f6;
+}
+
+.client-card {
+    border-top: 4px solid #3b82f6;
+}
+
+
+/* ==========================================
+   PÁGINA DE BLOG
+   ========================================== */
+
+/* Reglas comunes de animación para los estados del blog */
+.blog-status {
+    background: white;
+    border-top: 4px solid #c084fc; /* Línea lila de base */
+    transition: all 0.3s ease;
+}
+
+.blog-status:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-5px);
+}
+
+/* Estado cuando se lee un artículo específico */
+.blog-status.blog-articulo {
+    border-top-color: #a855f7; 
+    background: #faf5ff; 
+}
+
+/* Estado general de últimas noticias */
+.blog-status.blog-general {
+    border-top-color: #c084fc; 
+}
+
+/* Caja interna del tip o sugerencia */
+.blog-tip {
+    background: #f3e8ff;
+    border-left: 4px solid #c084fc;
+}
+
+.blog-tip code {
+    background: white;
+    color: #7e22ce;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* ==========================================
+   PÁGINA DE CONTACTO
+   ========================================== */
+
+/* Hero Section de Contacto */
+.hero-contact {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+}
+
+/* Información y Formulario */
+.contact-info-box, .contact-form-box {
+    background: white;
+    border-top: 4px solid #3b82f6;
+    transition: all 0.3s ease;
+}
+
+.contact-info-box:hover, .contact-form-box:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-5px);
+}
+
+/* Lista de canales de atención */
+.contact-list li {
+    color: #4b5563;
+    display: flex;
+    align-items: center;
+}
+
+/* Inputs personalizados */
+.custom-input {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 10px 12px;
+    transition: all 0.2s ease;
+}
+
+.custom-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    outline: none;
+}
+
+/* Botón de envío personalizado */
+.btn-contact-submit {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-contact-submit:hover {
+    background-color: #1d4ed8;
+    color: white;
+}
