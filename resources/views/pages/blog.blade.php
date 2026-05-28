@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Blog') @section('content')
 
 @section('content')
     <div class="text-center my-4 py-2">

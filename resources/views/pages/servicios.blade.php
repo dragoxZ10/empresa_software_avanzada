@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Servicios') @section('content')
 
 @section('content')
     <div class="hero-section-services text-center rounded-3 p-5 mb-4">

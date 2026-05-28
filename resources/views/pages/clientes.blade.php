@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Clientes') @section('content')
 
 @section('content')
     <!-- Hero Section -->

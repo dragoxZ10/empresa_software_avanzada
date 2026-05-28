@@ -1,33 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
-// Ruta Home
-Route::get('/', function () {
-    return view('pages.home');
-});
+// Páginas estáticas con Route::view y ->name()
+Route::view('/', 'pages.home')->name('home');
+Route::view('/contacto', 'pages.contacto')->name('contacto');
 
-// Ruta Servicios
-Route::get('/servicios/{param?}', function ($param = null) {
-    return view('pages.servicios', ['param' => $param]);
-})->where('param', '[A-Za-z]+');
+$regexEmpresa = '[A-Za-z0-9\-]+';
 
-// Ruta Proyectos
-Route::get('/proyectos/{param?}', function ($param = null) {
-    return view('pages.proyectos', ['param' => $param]);
-})->where('param', '[A-Za-z]+');
+// Rutas dinámicas conectadas al PageController
+Route::get('/servicios/{param?}', [PageController::class, 'servicios'])
+    ->name('servicios')->where('param', $regexEmpresa);
 
-// Ruta Clientes
-Route::get('/clientes/{param?}', function ($param = null) {
-    return view('pages.clientes', ['param' => $param]);
-})->where('param', '[A-Za-z]+');
+Route::get('/proyectos/{param?}', [PageController::class, 'proyectos'])
+    ->name('proyectos')->where('param', $regexEmpresa);
 
-// Ruta Blog
-Route::get('/blog/{param?}', function ($param = null) {
-    return view('pages.blog', ['param' => $param]);
-})->where('param', '[0-9]+');
+Route::get('/clientes/{param?}', [PageController::class, 'clientes'])
+    ->name('clientes')->where('param', $regexEmpresa);
 
-// Ruta Contacto
-Route::get('/contacto', function () {
-    return view('pages.contacto');
-});
+// Blog validado solo para números
+Route::get('/blog/{param?}', [PageController::class, 'blog'])
+    ->name('blog')->where('param', '[0-9]+');
