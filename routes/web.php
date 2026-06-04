@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 
+// Ruta optimizada que llama al controlador
+Route::get('/clientes', [PageController::class, 'clientes'])->name('clientes');
+
 // Páginas estáticas con Route::view y ->name()
 Route::view('/', 'pages.home')->name('home');
 Route::view('/contacto', 'pages.contacto')->name('contacto');

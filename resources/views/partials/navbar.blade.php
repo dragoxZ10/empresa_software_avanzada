@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}" style="color:#777">
-            <span style="font-size:15pt">&#9820;</span> Empresa S.A.
+            <span style="font-size:15pt">&#9820;</span> ER Digital Ecosytems
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
