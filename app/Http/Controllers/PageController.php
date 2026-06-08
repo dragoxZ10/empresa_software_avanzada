@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\DB;
+use App\Models\Persona;
 
 class PageController extends Controller
 {
@@ -22,10 +21,7 @@ class PageController extends Controller
 
     public function clientes()
     {
-        // Consultamos de forma limpia todos los registros de la tabla persona
-        $personas = DB::table('persona')->get();
-
-        // Enviamos la variable $personas directamente a la vista correspondiente
+        $personas = Persona::all();
         return view('pages.clientes', compact('personas'));
     }
 }

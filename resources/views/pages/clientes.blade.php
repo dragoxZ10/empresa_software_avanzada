@@ -77,7 +77,7 @@
                                         {{ $persona->cPerSexo ?? 'No asignado' }}
                                     </span>
                                 </td>
-                                <td class="p-3">{{ $persona->nPerEdad ?? 'N/A' }} años</td>
+                                <td class="p-3">{{ $persona->edad ?? 'N/A' }} años</td>
                                 <td class="p-3 fw-bold text-success">S/. {{ number_format($persona->nPerSueldo, 2) }}</td>
                                 <td class="p-3"><code class="text-dark">{{ $persona->cPerRnd }}</code></td>
                                 <td class="p-3">

@@ -6,21 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-public function up()
+    public function up()
     {
         Schema::table('persona', function (Blueprint $table) {
-            // Char(15), Nulo, Predeterminado 'Masculino', después de 'nPerEdad'
-            $table->char('cPerSexo', 15)->nullable()->default('Masculino')->after('nPerEdad');
+            $table->char('cPerSexo', 15)->nullable()->default('Masculino')->after('dPerFecNac');
         });
     }
 
     public function down()
     {
         Schema::table('persona', function (Blueprint $table) {
-            // Revierte el cambio eliminando la columna si hacemos rollback
             $table->dropColumn('cPerSexo');
         });
     }
