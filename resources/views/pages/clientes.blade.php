@@ -44,9 +44,22 @@
 
     <hr class="my-5" style="border-top: 2px dashed #bdc3c7;">
 
-    <div class="p-4 mb-4 text-white rounded-3 shadow-sm" style="background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);">
-        <h2 class="h4 fw-bold m-0"><i class="bi bi-server me-2"></i>Registro Interno de BD</h2>
-        <p class="mt-2 mb-0 text-white-50">Control sincronizado mediante Laravel DB Query Builder.</p>
+    {{-- ALERTA DE ÉXITO FLOTANTE (NUEVO SEMANA 9) --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm mb-4 border-0 p-3" role="alert" style="background-color: #d4edda; color: #155724;">
+            <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <div class="d-flex justify-content-between align-items-center mb-4 p-4 text-white rounded-3 shadow-sm" style="background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);">
+        <div>
+            <h2 class="h4 fw-bold m-0"><i class="bi bi-database-fill-check me-2 text-info"></i>Registro Interno de Base de Datos</h2>
+            <p class="mt-1 mb-0 text-white-50 small">Control sincronizado y ordenado dinámicamente. Los nuevos registros aparecen al inicio.</p>
+        </div>
+        <a href="{{ route('clientes.create') }}" class="btn btn-info rounded-pill px-4 py-2 fw-bold text-dark shadow-sm">
+            <i class="bi bi-person-plus-fill me-1"></i>Nuevo Registro
+        </a>
     </div>
 
     <div class="card border-0 shadow-sm rounded-3 overflow-hidden mb-5">
@@ -57,7 +70,7 @@
                         <tr>
                             <th class="p-3">Código</th>
                             <th class="p-3 text-start">Apellidos y Nombres</th>
-                            <th class="p-3">Sexo</th>
+                            <th class="p-3">Dirección</th>
                             <th class="p-3">Edad</th>
                             <th class="p-3">Sueldo Base</th>
                             <th class="p-3">Código RND</th>
@@ -72,14 +85,10 @@
                                     <div class="fw-bold text-dark">{{ $persona->cPerApellido }}</div>
                                     <small class="text-muted">{{ $persona->cPerNombre }}</small>
                                 </td>
-                                <td class="p-3">
-                                    <span class="badge rounded-pill bg-light text-dark border px-3 py-2">
-                                        {{ $persona->cPerSexo ?? 'No asignado' }}
-                                    </span>
-                                </td>
-                                <td class="p-3">{{ $persona->edad ?? 'N/A' }} años</td>
+                                <td class="p-3 text-start text-secondary small">{{ $persona->cPerDireccion ?? 'No registrada' }}</td>
+                                <td class="p-3">{{ $persona->nPerEdad ?? 'N/A' }} años</td>
                                 <td class="p-3 fw-bold text-success">S/. {{ number_format($persona->nPerSueldo, 2) }}</td>
-                                <td class="p-3"><code class="text-dark">{{ $persona->cPerRnd }}</code></td>
+                                <td class="p-3"><code class="text-dark bg-light px-2 py-1 rounded">{{ $persona->cPerRnd }}</code></td>
                                 <td class="p-3">
                                     @if($persona->nPerEstado == '1')
                                         <span class="badge bg-success-subtle text-success px-3 py-2 rounded-3 border border-success">Activo</span>
@@ -92,7 +101,7 @@
                             <tr>
                                 <td colspan="7" class="text-center p-5 text-muted">
                                     <i class="bi bi-database-exclamation display-4 d-block mb-3"></i>
-                                    No se encontraron registros de personas en la base de datos.
+                                    No se encontraron registros de personas en la base de datos empresarial.
                                 </td>
                             </tr>
                         @endforelse

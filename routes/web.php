@@ -16,8 +16,21 @@ Route::get('/servicios/{param?}', [PageController::class, 'servicios'])
 Route::get('/proyectos/{param?}', [PageController::class, 'proyectos'])
     ->name('proyectos')->where('param', $regexEmpresa);
 
+
+// Rutas Semana 9 - Crear Clientes
+Route::get('/clientes/crear', [PageController::class, 'create'])->name('clientes.create');
+
+Route::post('/clientes', [PageController::class, 'store'])->name('clientes.store');
+
+
+// Tu ruta original de Clientes
 Route::get('/clientes/{param?}', [PageController::class, 'clientes'])
     ->name('clientes')->where('param', $regexEmpresa);
 
 Route::get('/blog/{param?}', [PageController::class, 'blog'])
     ->name('blog')->where('param', '[0-9]+');
+
+
+
+
+    
