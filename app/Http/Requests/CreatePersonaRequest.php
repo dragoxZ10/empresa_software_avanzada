@@ -22,6 +22,7 @@ class CreatePersonaRequest extends FormRequest
             'dPerFecNac'    => 'required|date',
             'nPerEdad'      => 'required|integer|min:0',
             'nPerSueldo'    => 'required|numeric|min:0',
+            'nPerEstado' => 'required|in:0,1', // Asegúrate de incluir esto
         ];
     }
 

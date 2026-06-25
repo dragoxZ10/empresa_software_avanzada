@@ -7,8 +7,6 @@ use App\Models\Persona;
 use App\Http\Requests\CreatePersonaRequest; 
 use Illuminate\Support\Facades\DB;
 
-
-
 class PageController extends Controller
 {
     public function servicios($param = null) {
@@ -25,6 +23,7 @@ class PageController extends Controller
 
     public function clientes()
     {
+        // Se mantiene el query builder que retorna objetos básicos stdClass
         $personas = DB::table('persona')->orderByDesc('nPerCodigo')->get();
 
         return view('pages.clientes', compact('personas'));
@@ -32,9 +31,10 @@ class PageController extends Controller
 
     public function create()
     {
-        return view('pages.create_cliente');
+        return view('pages.create_cliente', [
+            'persona' => new Persona()
+        ]);
     }
-
     public function store(CreatePersonaRequest $request)
     {
         // Recuperamos los datos que ya pasaron por el filtro estricto de validación
@@ -47,6 +47,46 @@ class PageController extends Controller
         // Guardado limpio usando Eloquent
         Persona::create($camposValidados);
 
-        return redirect()->route('clientes.index')->with('success', '¡Nuevo cliente empresarial registrado e indexado con éxito!');
+        // CORRECCIÓN: Redireccionamos al nombre de ruta correcto que es 'clientes'
+        return redirect()->route('clientes')->with('success', '¡Nuevo cliente empresarial registrado e indexado con éxito!');
     }
+
+    /**
+     * Muestra el formulario de edición.
+     * Recibe el parámetro $id desde la ruta /personas/{id}/editar
+     */
+    public function edit($id)
+    {
+        // Buscamos a la persona usando Eloquent a través de su llave primaria 'nPerCodigo'
+        $persona = Persona::findOrFail($id);
+
+        return view('pages.editar_cliente', compact('persona'));
+    }
+
+    /**
+     * Procesa la actualización del registro en la base de datos.
+     * Inyecta 'CreatePersonaRequest' para reutilizar las mismas reglas de validación.
+     */
+    public function update(CreatePersonaRequest $request, $id)
+    {
+        $persona = Persona::findOrFail($id);
+        
+        // Esto debería actualizar todos los campos validados, incluido nPerEstado
+        $persona->update($request->validated());
+
+        return redirect()->route('clientes')->with('success', '¡Registro actualizado!');
+    }
+
+    public function destroy($id)
+    {
+        // Buscamos a la persona
+        $persona = Persona::findOrFail($id);
+        
+        // Eliminamos
+        $persona->delete();
+
+        // Redireccionamos a la lista con un mensaje
+        return redirect()->route('clientes')->with('success', '¡El cliente ha sido eliminado correctamente del sistema!');
+    }
+
 }

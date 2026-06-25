@@ -30,6 +30,14 @@ Route::get('/clientes/{param?}', [PageController::class, 'clientes'])
 Route::get('/blog/{param?}', [PageController::class, 'blog'])
     ->name('blog')->where('param', '[0-9]+');
 
+//Ruta Editar
+Route::get('personas/{id}/editar', [PageController::class, 'edit'])->name('personas.edit');
+
+//Ruta Actualizar
+Route::patch('personas/{id}', [PageController::class, 'update'])->name('personas.update');
+
+//Ruta Eliminar
+Route::delete('personas/{id}', [PageController::class, 'destroy'])->name('personas.destroy');
 
 
 

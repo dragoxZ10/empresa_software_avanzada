@@ -75,6 +75,7 @@
                             <th class="p-3">Sueldo Base</th>
                             <th class="p-3">Código RND</th>
                             <th class="p-3">Estado</th>
+                            <th class="p-3">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,10 +97,27 @@
                                         <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-3 border border-danger">Inactivo</span>
                                     @endif
                                 </td>
+                                <td class="align-middle"> <div class="d-flex gap-1"> <a href="{{ route('personas.edit', $persona->nPerCodigo) }}" 
+                                        class="btn btn-info btn-sm px-3 rounded-3 shadow-sm fw-semibold text-dark"
+                                        style="background-color: #aed6f1; border-color: #aed6f1;">
+                                            Editar
+                                        </a>
+
+                                        <form action="{{ route('personas.destroy', $persona->nPerCodigo) }}" method="POST" 
+                                            onsubmit="return confirm('¿Estás seguro?')" style="margin: 0;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm px-3 rounded-3 shadow-sm fw-semibold">
+                                                Eliminar
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center p-5 text-muted">
+                                <td colspan="8" class="text-center p-5 text-muted">
                                     <i class="bi bi-database-exclamation display-4 d-block mb-3"></i>
                                     No se encontraron registros de personas en la base de datos empresarial.
                                 </td>
