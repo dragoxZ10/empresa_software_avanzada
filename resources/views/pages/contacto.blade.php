@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Contacto') @section('content')
+@section('title', 'Contacto')
 
 @section('content')
     <div class="hero-contact text-center rounded-3 p-5 mb-4">
         <h1 class="fw-bold">Ponte en Contacto</h1>
-        <p class="lead mb-0">Comunícate con nosotros. 
-            <p class="lead mb-0"> Estamos listos para ayudarte a materializar tus proyectos tecnológicos.</p>
+        <p class="lead mb-0">Comunícate con nosotros.</p> 
+        <p class="lead mb-0">Estamos listos para ayudarte a materializar tus proyectos tecnológicos.</p>
     </div>
 
     <div class="container-fluid mb-5">
@@ -39,21 +39,44 @@
             <div class="col-md-6">
                 <div class="contact-form-box p-4 h-100 rounded-3 shadow-sm">
                     <h3 class="fw-bold mb-3 fs-4">Envíanos un Mensaje</h3>
-                    <form>
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                            <strong>¡Excelente!</strong> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    {{-- Formulario configurado para Laravel --}}
+                    <form action="{{ route('contacto') }}" method="post">
+                        @csrf 
+                        
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary">Nombre y Apellido</label>
-                            <input type="text" class="form-control custom-input" placeholder="Tu nombre completo">
+                            <input type="text" name="nombre" class="form-control custom-input" placeholder="Tu nombre completo" value="{{ old('nombre') }}">
+                            <small class="text-danger fw-bold">{{ $errors->first('nombre') }}</small>
                         </div>
+                        
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary">Correo Electrónico</label>
-                            <input type="email" class="form-control custom-input" placeholder="ejemplo@correo.com">
+                            <input type="email" name="email" class="form-control custom-input" placeholder="ejemplo@correo.com" value="{{ old('email') }}">
+                            <small class="text-danger fw-bold">{{ $errors->first('email') }}</small>
                         </div>
+                        
+                        {{-- Campo Asunto agregado para cumplir con la validación del backend --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary">Asunto</label>
+                            <input type="text" name="asunto" class="form-control custom-input" placeholder="Motivo de tu mensaje" value="{{ old('asunto') }}">
+                            <small class="text-danger fw-bold">{{ $errors->first('asunto') }}</small>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label fw-semibold text-secondary">Mensaje</label>
-                            <textarea class="form-control custom-input" rows="4" placeholder="Escribe tu mensaje."></textarea>
+                            <textarea name="mensaje" class="form-control custom-input" rows="4" placeholder="Escribe tu mensaje.">{{ old('mensaje') }}</textarea>
+                            <small class="text-danger fw-bold">{{ $errors->first('mensaje') }}</small>
                         </div>
+                        
                         <div class="d-grid">
-                            <button type="button" class="btn btn-contact-submit fw-bold py-2 shadow-sm">Enviar Mensaje</button>
+                            {{-- Se cambió type="button" a type="submit" para enviar los datos --}}
+                            <button type="submit" class="btn btn-primary btn-contact-submit fw-bold py-2 shadow-sm">Enviar Mensaje</button>
                         </div>
                     </form>
                 </div>
