@@ -4,13 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactoController;
 
+// RUTAS DE AUTENTICACIÓN (Semana 13 - Parte 2)
+Auth::routes(['register' => false]); // Deshabilita la opción de registro y oculta la ruta
+
 // SEMANA 13: Personalización de verbos para mantener tus URLs en español (/crear y /editar)
 Route::resourceVerbs([
     'create' => 'crear',
     'edit' => 'editar',
 ]);
 
-// Páginas estáticas
+// Páginas estáticas (Nuestra ruta raíz es nuestro verdadero 'home')
 Route::view('/', 'pages.home')->name('home');
 
 // Formulario de contacto (Semana 12)
@@ -29,7 +32,8 @@ Route::get('/proyectos/{param?}', [PageController::class, 'proyectos'])
 Route::get('/blog/{param?}', [PageController::class, 'blog'])
     ->name('blog')->where('param', '[0-9]+');
 
-// SEMANA 13: Route::resource
+
+// SEMANA 13: RECURSOS (Route::resource)
 
 // 1. Recurso para Clientes: Controla el listado (index), el formulario (create) y el guardado (store)
 Route::resource('clientes', PageController::class)->only(['index', 'create', 'store'])->names([

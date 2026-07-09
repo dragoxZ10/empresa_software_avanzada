@@ -2,9 +2,9 @@
     /* 1. Efecto Hover: Cambia de color al pasar el mouse encima */
     .navbar-nav .nav-item .nav-link:hover {
         color: #007bff !important; /* Cambia el texto a color Azul */
-        background-color: #f1f1f1; /* Le da un fondito gris sutil para que resalte más */
+        background-color: #f8f9fa; /* Un fondo súper sutil casi invisible para mantener la formalidad */
         border-radius: 4px;
-        transition: color 0.3s ease-in-out;
+        transition: color 0.3s ease-in-out, background-color 0.3s;
     }
 
     /* 2. Pestaña Activa: El color de la sección en la que te encuentras */
@@ -14,50 +14,55 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}" style="color:#777">
-            <span style="font-size:15pt">&#9820;</span> ER Digital Ecosytems
+        <a class="navbar-brand fw-bold" href="{{ route('home') }}" style="color:#333">
+            <span style="font-size:15pt; color: #007bff;">&#9820;</span> ER Digital Ecosytems
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        @if( true || Auth::check() )
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{ setActivo('home') }}">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item {{ setActivo('servicios') }}">
-                        <a class="nav-link" href="{{ route('servicios') }}">Servicios</a>
-                    </li>
-                    <li class="nav-item {{ setActivo('proyectos') }}">
-                        <a class="nav-link" href="{{ route('proyectos') }}">Proyectos</a>
-                    </li>
-                    <li class="nav-item {{ setActivo('clientes') }}">
-                        <a class="nav-link" href="{{ route('clientes') }}">Clientes</a>
-                    </li>
-                    <li class="nav-item {{ setActivo('blog') }}">
-                        <a class="nav-link" href="{{ route('blog') }}">Blog</a>
-                    </li>
-                    <li class="nav-item {{ setActivo('contacto') }}">
-                        <a class="nav-link" href="{{ route('contacto') }}">Contacto</a>
-                    </li>
-                </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ setActivo('home') }}">
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="nav-item {{ setActivo('servicios') }}">
+                    <a class="nav-link" href="{{ route('servicios') }}">Servicios</a>
+                </li>
+                <li class="nav-item {{ setActivo('proyectos') }}">
+                    <a class="nav-link" href="{{ route('proyectos') }}">Proyectos</a>
+                </li>
+                <li class="nav-item {{ setActivo('clientes') }}">
+                    <a class="nav-link" href="{{ route('clientes') }}">Clientes</a>
+                </li>
+                <li class="nav-item {{ setActivo('blog') }}">
+                    <a class="nav-link" href="{{ route('blog') }}">Blog</a>
+                </li>
+                <li class="nav-item {{ setActivo('contacto') }}">
+                    <a class="nav-link" href="{{ route('contacto') }}">Contacto</a>
+                </li>
+            </ul>
 
-                <ul class="navbar-nav navbar-right">
+            <ul class="navbar-nav ml-auto">
+                @guest
                     <li class="nav-item">
-                        <form action="{{ url('/logout') }}" method="POST" style="display:inline">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-link nav-link" style="display:inline;cursor:pointer">
-                                Cerrar sesión
-                            </button>
-                        </form>
+                        <a class="nav-link fw-bold text-primary" href="{{ route('login') }}">Iniciar Sesión</a>
                     </li>
-                </ul>
-            </div>
-        @endif
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Cerrar Sesión
+                        </a>
+                    </li>
+                    
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @endguest
+            </ul>
+        </div>
     </div>
 </nav>
