@@ -57,9 +57,12 @@
             <h2 class="h4 fw-bold m-0"><i class="bi bi-database-fill-check me-2 text-info"></i>Registro Interno de Base de Datos</h2>
             <p class="mt-1 mb-0 text-white-50 small">Control sincronizado y ordenado dinámicamente. Los nuevos registros aparecen al inicio.</p>
         </div>
+
+        @auth
         <a href="{{ route('clientes.create') }}" class="btn btn-info rounded-pill px-4 py-2 fw-bold text-dark shadow-sm">
             <i class="bi bi-person-plus-fill me-1"></i>Nuevo Registro
         </a>
+        @endauth
     </div>
 
     <div class="card border-0 shadow-sm rounded-3 overflow-hidden mb-5">
@@ -75,7 +78,9 @@
                             <th class="p-3">Sueldo Base</th>
                             <th class="p-3">Código RND</th>
                             <th class="p-3">Estado</th>
+                            @auth
                             <th class="p-3">Acciones</th>
+                            @endauth
                         </tr>
                     </thead>
                     <tbody>
@@ -97,6 +102,7 @@
                                         <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-3 border border-danger">Inactivo</span>
                                     @endif
                                 </td>
+                                @auth
                                 <td class="align-middle"> <div class="d-flex gap-1"> <a href="{{ route('personas.edit', $persona->nPerCodigo) }}" 
                                         class="btn btn-info btn-sm px-3 rounded-3 shadow-sm fw-semibold text-dark"
                                         style="background-color: #aed6f1; border-color: #aed6f1;">
@@ -111,9 +117,9 @@
                                                 Eliminar
                                             </button>
                                         </form>
-
                                     </div>
                                 </td>
+                                @endauth
                             </tr>
                         @empty
                             <tr>

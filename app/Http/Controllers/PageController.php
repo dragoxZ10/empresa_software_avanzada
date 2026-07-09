@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
+    // SEMANA 13 - TAREA 3: MIDDLEWARE DE SEGURIDAD
+    
+    public function __construct()
+    {
+        // Protegemos SOLO los métodos del CRUD que alteran información.
+        // Las vistas estáticas y el listado general (index) siguen siendo públicos.
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update', 'destroy']);
+    }
+
     public function servicios($param = null) {
         return view('pages.servicios', ['param' => $param]);
     }
