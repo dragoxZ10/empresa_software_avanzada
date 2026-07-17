@@ -40,5 +40,5 @@ Route::resource('clientes', PageController::class)->only(['index', 'create', 'st
     'index' => 'clientes', // Forzamos el nombre exacto 'clientes' para no romper tus vistas
 ]);
 
-// 2. Recurso para Personas: Controla la edición (edit), actualización (update) y eliminación (destroy)
-Route::resource('personas', PageController::class)->only(['edit', 'update', 'destroy']);
+// 2. Recurso para Personas: Controla la visualización (show), edición (edit), actualización (update) y eliminación (destroy)
+Route::resource('personas', PageController::class)->only(['show', 'edit', 'update', 'destroy']);

@@ -67,9 +67,13 @@ class PageController extends Controller
         return redirect()->route('clientes')->with('success', '¡Nuevo cliente empresarial registrado e indexado con éxito!');
     }
 
-    /**
-     * Muestra el formulario de edición.
-     */
+    public function show($id)
+    {
+        $persona = Persona::findOrFail($id);
+        return view('pages.show_cliente', compact('persona'));
+    }
+
+
     public function edit($id)
     {
         $persona = Persona::findOrFail($id);

@@ -123,6 +123,10 @@
                                             Editar
                                         </a>
 
+                                        <a href="{{ route('personas.show', $persona->nPerCodigo) }}" class="btn btn-secondary btn-sm px-3 rounded-3 shadow-sm fw-semibold">
+                                            Ver
+                                        </a>
+
                                         <form action="{{ route('personas.destroy', $persona->nPerCodigo) }}" method="POST" 
                                             onsubmit="return confirm('¿Estás seguro?')" style="margin: 0;">
                                             @csrf
