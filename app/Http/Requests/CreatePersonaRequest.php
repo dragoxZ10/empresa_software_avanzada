@@ -6,13 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreatePersonaRequest extends FormRequest
 {
-    // Cambiar a true para autorizar la petición del formulario
     public function authorize()
     {
-        return true;
+        return true; // Autorizamos la petición
     }
 
-    //Definición de las reglas de validación corporativas
     public function rules()
     {
         return [
@@ -22,19 +20,24 @@ class CreatePersonaRequest extends FormRequest
             'dPerFecNac'    => 'required|date',
             'nPerEdad'      => 'required|integer|min:0',
             'nPerSueldo'    => 'required|numeric|min:0',
-            'nPerEstado' => 'required|in:0,1', // Asegúrate de incluir esto
+            // SOLUCIÓN: Cambiamos 'required' por 'nullable'
+            'nPerEstado'    => 'nullable|in:0,1', 
+            'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
-    //Mensajes personalizados debajo de cada caja de texto
     public function messages()
     {
         return [
             'cPerApellido.required' => 'El apellido del cliente es totalmente obligatorio.',
-            'cPerNombre.required'    => 'El nombre del cliente es totalmente obligatorio.',
-            'dPerFecNac.required'    => 'Seleccione una fecha de nacimiento válida.',
-            'nPerEdad.required'      => 'La edad cronológica es obligatoria.',
-            'nPerSueldo.required'    => 'Debe asignar un sueldo base mayor a cero.',
+            'cPerNombre.required'   => 'El nombre del cliente es totalmente obligatorio.',
+            'dPerFecNac.required'   => 'Seleccione una fecha de nacimiento válida.',
+            'nPerEdad.required'     => 'La edad cronológica es obligatoria.',
+            'nPerSueldo.required'   => 'Debe asignar un sueldo base mayor a cero.',
+            // NUEVOS MENSAJES DE ERROR PARA LA IMAGEN
+            'image.image'           => 'El archivo debe ser una imagen válida.',
+            'image.mimes'           => 'Solo se permiten imágenes en formato JPEG, JPG o PNG.',
+            'image.max'             => 'La imagen no debe pesar más de 2MB.',
         ];
     }
 }

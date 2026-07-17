@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Persona;
 use App\Http\Requests\CreatePersonaRequest; 
 use Illuminate\Support\Facades\DB;
+// Importamos Storage por si más adelante necesitas eliminar imágenes viejas
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
     // SEMANA 13 - TAREA 3: MIDDLEWARE DE SEGURIDAD
-    
     public function __construct()
     {
         // Protegemos SOLO los métodos del CRUD que alteran información.
@@ -54,6 +55,12 @@ class PageController extends Controller
         $camposValidados['cPerRnd'] = 'RND-' . strtoupper(substr(uniqid(), -5));
         $camposValidados['nPerEstado'] = '1'; 
 
+        // NUEVO: Lógica para procesar la imagen si el usuario subió una
+        if ($request->hasFile('image')) {
+            // Guarda físicamente la imagen en storage/app/public/images y retorna la ruta
+            $camposValidados['image'] = $request->file('image')->store('images');
+        }
+
         // Guardado limpio usando Eloquent
         Persona::create($camposValidados);
 
@@ -76,8 +83,20 @@ class PageController extends Controller
     public function update(CreatePersonaRequest $request, $id)
     {
         $persona = Persona::findOrFail($id);
-        
-        $persona->update($request->validated());
+        $camposValidados = $request->validated();
+
+        // NUEVO: Lógica para actualizar la imagen si el usuario seleccionó una nueva
+        if ($request->hasFile('image')) {
+            // Opcional: Eliminar la imagen anterior del servidor para ahorrar espacio
+            if ($persona->image) {
+                Storage::delete($persona->image);
+            }
+            
+            // Guardar la nueva imagen
+            $camposValidados['image'] = $request->file('image')->store('images');
+        }
+
+        $persona->update($camposValidados);
 
         return redirect()->route('clientes')->with('success', '¡Registro actualizado!');
     }
@@ -88,6 +107,12 @@ class PageController extends Controller
     public function destroy($id)
     {
         $persona = Persona::findOrFail($id);
+        
+        // NUEVO: Si eliminamos al cliente, también borramos su imagen del servidor
+        if ($persona->image) {
+            Storage::delete($persona->image);
+        }
+        
         $persona->delete();
 
         return redirect()->route('clientes')->with('success', '¡El cliente ha sido eliminado correctamente del sistema!');

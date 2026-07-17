@@ -72,6 +72,8 @@
                     <thead class="text-white fw-bold" style="background-color: #5dade2;">
                         <tr>
                             <th class="p-3">Código</th>
+                            <!-- NUEVA COLUMNA DE IMAGEN -->
+                            <th class="p-3">Perfil</th>
                             <th class="p-3 text-start">Apellidos y Nombres</th>
                             <th class="p-3">Dirección</th>
                             <th class="p-3">Edad</th>
@@ -87,6 +89,18 @@
                         @forelse($personas as $persona)
                             <tr>
                                 <td class="fw-bold text-muted p-3">#{{ $persona->nPerCodigo }}</td>
+                                
+                                <!-- NUEVA CELDA DE IMAGEN CON LÓGICA DE CONDICIÓN -->
+                                <td class="p-3">
+                                    @if($persona->image)
+                                        <img src="{{ asset('storage/' . $persona->image) }}" alt="Perfil" class="rounded-circle object-fit-cover shadow-sm" style="width: 45px; height: 45px;">
+                                    @else
+                                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center text-secondary shadow-sm mx-auto" style="width: 45px; height: 45px;">
+                                            <i class="bi bi-person-fill fs-4"></i>
+                                        </div>
+                                    @endif
+                                </td>
+
                                 <td class="text-start p-3">
                                     <div class="fw-bold text-dark">{{ $persona->cPerApellido }}</div>
                                     <small class="text-muted">{{ $persona->cPerNombre }}</small>
@@ -103,7 +117,7 @@
                                     @endif
                                 </td>
                                 @auth
-                                <td class="align-middle"> <div class="d-flex gap-1"> <a href="{{ route('personas.edit', $persona->nPerCodigo) }}" 
+                                <td class="align-middle"> <div class="d-flex gap-1 justify-content-center"> <a href="{{ route('personas.edit', $persona->nPerCodigo) }}" 
                                         class="btn btn-info btn-sm px-3 rounded-3 shadow-sm fw-semibold text-dark"
                                         style="background-color: #aed6f1; border-color: #aed6f1;">
                                             Editar
@@ -123,7 +137,8 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center p-5 text-muted">
+                                <!-- SE ACTUALIZÓ EL COLSPAN A 9 PARA CUBRIR LA NUEVA COLUMNA -->
+                                <td colspan="9" class="text-center p-5 text-muted">
                                     <i class="bi bi-database-exclamation display-4 d-block mb-3"></i>
                                     No se encontraron registros de personas en la base de datos empresarial.
                                 </td>

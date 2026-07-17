@@ -16,7 +16,7 @@
                 </div>
                 
                 <div class="card-body p-4 bg-light-subtle">
-                    <form action="{{ route('clientes.store') }}" method="POST">
+                    <form action="{{ route('clientes.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         @include('partials.form', ['btnText' => 'Guardar Cliente', 'btnIcon' => 'bi-cloud-check-fill'])

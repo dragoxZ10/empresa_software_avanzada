@@ -16,7 +16,7 @@
                 </div>
                 
                 <div class="card-body p-4 bg-light-subtle">
-                    <form action="{{ route('personas.update', $persona->nPerCodigo) }}" method="POST">
+                    <form action="{{ route('personas.update', $persona->nPerCodigo) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
 
