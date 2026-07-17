@@ -11,6 +11,7 @@ class CreatePersonaRequest extends FormRequest
         return true; // Autorizamos la petición
     }
 
+// Definición de las reglas de validación corporativas
     public function rules()
     {
         return [
@@ -20,12 +21,14 @@ class CreatePersonaRequest extends FormRequest
             'dPerFecNac'    => 'required|date',
             'nPerEdad'      => 'required|integer|min:0',
             'nPerSueldo'    => 'required|numeric|min:0',
-            // SOLUCIÓN: Cambiamos 'required' por 'nullable'
-            'nPerEstado'    => 'nullable|in:0,1', 
-            'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'nPerEstado'    => 'nullable|in:0,1',
+            
+            // TAREA 3: Validación avanzada de imágenes usando sintaxis de arreglos
+            // Restringe solo a jpeg y png, con peso máximo de 2000 kb
+            'image'         => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2000'],
         ];
     }
-
+    
     public function messages()
     {
         return [
@@ -34,10 +37,12 @@ class CreatePersonaRequest extends FormRequest
             'dPerFecNac.required'   => 'Seleccione una fecha de nacimiento válida.',
             'nPerEdad.required'     => 'La edad cronológica es obligatoria.',
             'nPerSueldo.required'   => 'Debe asignar un sueldo base mayor a cero.',
-            // NUEVOS MENSAJES DE ERROR PARA LA IMAGEN
-            'image.image'           => 'El archivo debe ser una imagen válida.',
-            'image.mimes'           => 'Solo se permiten imágenes en formato JPEG, JPG o PNG.',
-            'image.max'             => 'La imagen no debe pesar más de 2MB.',
+            
+            // TAREA 3: Mensajes de error personalizados para la imagen
+            'image.required'        => 'Debes seleccionar una imagen.',
+            'image.image'           => 'El archivo seleccionado debe ser una imagen válida.',
+            'image.mimes'           => 'Solo se permiten imágenes en formato JPEG o PNG.',
+            'image.max'             => 'El peso máximo del archivo es 2000 kb.',
         ];
     }
 }
