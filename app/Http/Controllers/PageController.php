@@ -89,14 +89,19 @@ class PageController extends Controller
         $persona = Persona::findOrFail($id);
         $camposValidados = $request->validated();
 
-        // NUEVO: Lógica para actualizar la imagen si el usuario seleccionó una nueva
-        if ($request->hasFile('image')) {
-            // Opcional: Eliminar la imagen anterior del servidor para ahorrar espacio
+        // 1. Verificamos si el usuario marcó el switch para ELIMINAR la imagen actual
+        if ($request->has('quitar_imagen') && $request->quitar_imagen == '1') {
             if ($persona->image) {
-                Storage::delete($persona->image);
+                Storage::delete($persona->image); // Eliminamos la foto del servidor[cite: 5]
             }
-            
-            // Guardar la nueva imagen
+            $camposValidados['image'] = null; // Vaciamos el campo para la BD
+        } 
+        // 2. Si no la eliminó, verificamos si subió una NUEVA imagen para reemplazarla
+        elseif ($request->hasFile('image')) {
+            if ($persona->image) {
+                Storage::delete($persona->image); // Eliminamos la foto anterior[cite: 5]
+            }
+            // Guardamos la nueva imagen
             $camposValidados['image'] = $request->file('image')->store('images');
         }
 
@@ -104,7 +109,6 @@ class PageController extends Controller
 
         return redirect()->route('clientes')->with('success', '¡Registro actualizado!');
     }
-
     /**
      * Elimina el registro de la base de datos.
      */

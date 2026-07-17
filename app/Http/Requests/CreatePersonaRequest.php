@@ -11,7 +11,7 @@ class CreatePersonaRequest extends FormRequest
         return true; // Autorizamos la petición
     }
 
-// Definición de las reglas de validación corporativas
+    // Definición de las reglas de validación corporativas
     public function rules()
     {
         return [
@@ -23,12 +23,16 @@ class CreatePersonaRequest extends FormRequest
             'nPerSueldo'    => 'required|numeric|min:0',
             'nPerEstado'    => 'nullable|in:0,1',
             
-            // TAREA 3: Validación avanzada de imágenes usando sintaxis de arreglos
-            // Restringe solo a jpeg y png, con peso máximo de 2000 kb
-            'image'         => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2000'],
+            // Si hay un parámetro 'persona' en la ruta (estamos editando), es nullable. Si no, es required.
+            'image' => [
+                $this->route('persona') ? 'nullable' : 'required', 
+                'image', 
+                'mimes:jpeg,png,jpg', 
+                'max:2048'
+            ],
         ];
     }
-    
+
     public function messages()
     {
         return [

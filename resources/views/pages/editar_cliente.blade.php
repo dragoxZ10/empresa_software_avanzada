@@ -20,6 +20,20 @@
                         @csrf
                         @method('PATCH')
 
+                        {{-- TAREA 4: Mostrar la imagen actual si es que el cliente tiene una registrada --}}
+                        @if($persona->image)
+                            <div class="d-flex flex-column align-items-center mb-4 p-3 bg-white rounded-3 shadow-sm border">
+                                <span class="text-muted small fw-bold mb-2">Fotografía de Perfil Actual</span>
+                                <img src="/storage/{{ $persona->image }}" alt="Foto de {{ $persona->cPerNombre }}" class="rounded shadow-sm object-fit-cover mb-3" width="150" height="150">
+                                
+                                {{-- NUEVO: Checkbox para eliminar la imagen --}}
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="quitar_imagen" name="quitar_imagen" value="1">
+                                    <label class="form-check-label text-danger small fw-bold" for="quitar_imagen">Eliminar imagen actual</label>
+                                </div>
+                            </div>
+                        @endif
+
                         @include('partials.form', ['btnText' => 'Guardar Cambios', 'btnIcon' => 'bi-cloud-arrow-up-fill'])
                         
                     </form>
